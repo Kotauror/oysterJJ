@@ -56,3 +56,11 @@ initialize rspec
 ```shell
 $ rspec --init
 ```
+
+# Ex. 5
+
+if you have += method, a good test is:
+(we have a top up method, that += the amount (here 1))
+```ruby
+expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
+```
