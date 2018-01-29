@@ -14,8 +14,7 @@ subject(:oystercard) { described_class.new }
       expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
     end
     it "raises error when maximum balance is exceeded" do
-      maximum_balance = Oystercard::MAXIMUM_BALANCE
-      oystercard.top_up(maximum_balance)
+      oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
       expect{ subject.top_up 1 }.to raise_error "Maximum balance exceeded"
     end
   end
