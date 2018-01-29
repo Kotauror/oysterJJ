@@ -26,4 +26,30 @@ subject(:oystercard) { described_class.new }
     end
   end
 
+  it 'is initially not in a journey' do
+    expect(subject).not_to be_in_journey
+  end
+
+  describe "#touch_in" do
+    it "changes the card status to in_journey" do
+    oystercard.touch_in
+    expect(oystercard.card_status).to eq :in_journey
+    end
+  end
+
+  describe "#touch_out" do
+    it "changes the card status to not_in_journey" do
+    oystercard.touch_in
+    oystercard.touch_out
+    expect(oystercard.card_status).to eq :not_in_journey
+    end
+  end
+
+  describe "#journey?" do
+    it "tells if the card is in journey" do
+    oystercard.touch_in
+    expect(oystercard).to be_in_journey
+    end
+  end
+
 end
