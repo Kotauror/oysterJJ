@@ -19,22 +19,15 @@ subject(:oystercard) { described_class.new }
     end
   end
 
-  describe "#deduct" do
-    it { is_expected.to respond_to(:deduct).with(1).argument}
-    it "deducts an amount from the card" do
-      expect{ oystercard.deduct 1}.to change{ oystercard.balance}.by -1
-    end
-  end
-
   it 'is initially not in a journey' do
     expect(subject).not_to be_in_journey
   end
 
   describe "#touch_in" do
     it "changes the card status to in_journey" do
-    oystercard.top_up(Oystercard::MINIMUM_BALANCE)
-    oystercard.touch_in
-    expect(oystercard.card_status).to eq :in_journey
+      oystercard.top_up(Oystercard::MINIMUM_BALANCE)
+      oystercard.touch_in
+      expect(oystercard.card_status).to eq :in_journey
     end
 
     it "raises error when balance is less than minimun balance" do
@@ -46,18 +39,25 @@ subject(:oystercard) { described_class.new }
 
   describe "#touch_out" do
     it "changes the card status to not_in_journey" do
-    oystercard.top_up(Oystercard::MINIMUM_BALANCE)
-    oystercard.touch_in
-    oystercard.touch_out
-    expect(oystercard.card_status).to eq :not_in_journey
+      oystercard.top_up(Oystercard::MINIMUM_BALANCE)
+      oystercard.touch_in
+      oystercard.touch_out
+      expect(oystercard.card_status).to eq :not_in_journey
     end
+    it "charges the card" do
+      oystercard.top_up(Oystercard::MINIMUM_BALANCE)
+      oystercard.touch_in
+      expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
+      end
+    # touch_out is calling a private method deduct, but the test will work as
+    # we are actually testing our deduct method implicitly whilst testing touch_out.
   end
 
   describe "#journey?" do
     it "tells if the card is in journey" do
-    oystercard.top_up(Oystercard::MINIMUM_BALANCE)
-    oystercard.touch_in
-    expect(oystercard).to be_in_journey
+      oystercard.top_up(Oystercard::MINIMUM_BALANCE)
+      oystercard.touch_in
+      expect(oystercard).to be_in_journey
     end
   end
 

@@ -16,21 +16,24 @@ class Oystercard
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def touch_in
     fail "Not enough credit in your card" if @balance < MINIMUM_BALANCE
     @card_status = :in_journey
   end
 
   def touch_out
+    deduct(MINIMUM_BALANCE)
     @card_status = :not_in_journey
   end
 
   def in_journey?
      @card_status == :in_journey
+  end
+
+  private
+
+  def deduct(amount)
+    @balance -= amount
   end
 
 end
