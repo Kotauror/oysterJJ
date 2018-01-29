@@ -29,7 +29,7 @@ subject(:oystercard) { described_class.new }
   it 'is initially not in a journey' do
     expect(subject).not_to be_in_journey
   end
-
+ 
   describe "#touch_in" do
     it "changes the card status to in_journey" do
     oystercard.touch_in
