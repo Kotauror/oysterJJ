@@ -1,7 +1,7 @@
 class Oystercard
 
   attr_reader :balance
-  attr_accessor :card_status
+  attr_reader :card_status
 
   MAXIMUM_BALANCE = 90 #constant for limit of monay on card
   MINIMUM_BALANCE = 1
