@@ -29,16 +29,24 @@ subject(:oystercard) { described_class.new }
   it 'is initially not in a journey' do
     expect(subject).not_to be_in_journey
   end
- 
+
   describe "#touch_in" do
     it "changes the card status to in_journey" do
+    oystercard.top_up(Oystercard::MINIMUM_BALANCE)
     oystercard.touch_in
     expect(oystercard.card_status).to eq :in_journey
     end
+
+    it "raises error when balance is less than minimun balance" do
+      oystercard.top_up(0.5)
+      expect{ oystercard.touch_in }.to raise_error "Not enough credit in your card"
+    end
+
   end
 
   describe "#touch_out" do
     it "changes the card status to not_in_journey" do
+    oystercard.top_up(Oystercard::MINIMUM_BALANCE)
     oystercard.touch_in
     oystercard.touch_out
     expect(oystercard.card_status).to eq :not_in_journey
@@ -47,6 +55,7 @@ subject(:oystercard) { described_class.new }
 
   describe "#journey?" do
     it "tells if the card is in journey" do
+    oystercard.top_up(Oystercard::MINIMUM_BALANCE)
     oystercard.touch_in
     expect(oystercard).to be_in_journey
     end

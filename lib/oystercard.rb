@@ -4,6 +4,7 @@ class Oystercard
   attr_accessor :card_status
 
   MAXIMUM_BALANCE = 90 #constant for limit of monay on card
+  MINIMUM_BALANCE = 1
 
   def initialize
     @balance = 0
@@ -20,6 +21,7 @@ class Oystercard
   end
 
   def touch_in
+    fail "Not enough credit in your card" if @balance < MINIMUM_BALANCE
     @card_status = :in_journey
   end
 
