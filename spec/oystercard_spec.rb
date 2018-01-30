@@ -57,6 +57,9 @@ describe Oystercard do
     end
     # touch_out is calling a private method deduct, but the test will work as
     # we are actually testing our deduct method implicitly whilst testing touch_out.
+  end
+
+  describe "#reset_stations" do
     it "changes the entry station to nil" do
       oystercard.top_up(Oystercard::MINIMUM_BALANCE)
       oystercard.touch_in(station)
