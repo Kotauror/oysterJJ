@@ -6,7 +6,7 @@ describe Oystercard do
   let(:station){ double :station }
 
   it 'has initial balance of zero' do
-    expect(oystercard.balance).to eq (0)
+    expect(oystercard.balance).to eq(0)
   end
 
   it 'is initially not in a journey' do
