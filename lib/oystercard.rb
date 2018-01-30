@@ -1,6 +1,6 @@
 class Oystercard
 
-  attr_reader :balance, :card_status, :entry_station, :journeys, :exit_station
+  attr_reader :balance, :card_status, :entry_station, :exit_station, :journeys
 
   MAXIMUM_BALANCE = 90 #constant for limit of monay on card
   MINIMUM_BALANCE = 1
@@ -25,20 +25,20 @@ class Oystercard
   end
 
   def touch_out(name_of_station)
+    @card_status = :not_in_journey
     @exit_station = name_of_station
     deduct(MINIMUM_BALANCE)
-    @card_status = :not_in_journey
     add_journey()
     reset_stations()
+  end
+
+  def add_journey
+    @journeys.push(entry_station: @entry_station, exit_station: @exit_station)
   end
 
   def reset_stations
     @entry_station = nil
     @exit_station = nil
-  end
-
-  def add_journey
-    @journeys.push(entry_station: @entry_station, exit_station: @exit_station)
   end
 
   def in_journey?
