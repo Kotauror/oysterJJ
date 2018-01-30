@@ -28,7 +28,11 @@ class Oystercard
     @exit_station = name_of_station
     deduct(MINIMUM_BALANCE)
     @card_status = :not_in_journey
-    add_journey
+    add_journey()
+    reset_stations()
+  end
+
+  def reset_stations
     @entry_station = nil
     @exit_station = nil
   end
