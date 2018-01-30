@@ -84,7 +84,7 @@ describe Oystercard do
       oystercard.top_up(Oystercard::MINIMUM_BALANCE)
       oystercard.touch_in("station1")
       oystercard.touch_out("station2")
-      expect(oystercard.journeys).to eq("station1" => "station2")
+      expect(oystercard.journeys).to include ({:entry_station=>"station1", :exit_station=>"station2"})
     end
   end
 end
