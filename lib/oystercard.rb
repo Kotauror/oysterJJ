@@ -4,7 +4,7 @@ class Oystercard
   attr_reader :card_status
   attr_reader :entry_station
 
-  MAXIMUM_BALANCE = 90 #constant for limit of money on card
+  MAXIMUM_BALANCE = 90 #constant for limit of monay on card
   MINIMUM_BALANCE = 1
 
   def initialize
@@ -31,7 +31,7 @@ class Oystercard
   end
 
   def in_journey?
-    !!entry_station #if there is an entry station != nil, it returns true, otherwise false  
+    !!entry_station #if there is an entry station != nil, it returns true, otherwise false
   end
 
   private
