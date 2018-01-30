@@ -31,7 +31,7 @@ class Oystercard
   end
 
   def in_journey?
-     @card_status == :in_journey
+    !!entry_station #if there is an entry station != nil, it returns true, otherwise false  
   end
 
   private
