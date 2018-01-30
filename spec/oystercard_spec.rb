@@ -2,11 +2,15 @@ require 'oystercard'
 
 describe Oystercard do
 
-subject(:oystercard) { described_class.new }
-let(:station){ double :station }
+  subject(:oystercard) { described_class.new }
+  let(:station){ double :station }
 
   it 'has initial balance of zero' do
     expect(oystercard.balance).to eq (0)
+  end
+
+  it 'is initially not in a journey' do
+    expect(subject).not_to be_in_journey
   end
 
   describe '#top_up' do
@@ -18,10 +22,6 @@ let(:station){ double :station }
       oystercard.top_up(Oystercard::MAXIMUM_BALANCE)
       expect{ oystercard.top_up 1 }.to raise_error "Maximum balance exceeded"
     end
-  end
-
-  it 'is initially not in a journey' do
-    expect(subject).not_to be_in_journey
   end
 
   describe "#touch_in" do
@@ -52,7 +52,7 @@ let(:station){ double :station }
       oystercard.top_up(Oystercard::MINIMUM_BALANCE)
       oystercard.touch_in(station)
       expect{ subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
-      end
+    end
     # touch_out is calling a private method deduct, but the test will work as
     # we are actually testing our deduct method implicitly whilst testing touch_out.
     it "changes the status to nil" do
@@ -70,5 +70,4 @@ let(:station){ double :station }
       expect(oystercard).to be_in_journey
     end
   end
-
 end

@@ -4,7 +4,7 @@ class Oystercard
   attr_reader :card_status
   attr_reader :entry_station
 
-  MAXIMUM_BALANCE = 90 #constant for limit of monay on card
+  MAXIMUM_BALANCE = 90 #constant for limit of money on card
   MINIMUM_BALANCE = 1
 
   def initialize
